@@ -71,6 +71,8 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const char *upvolume[] = { "amixer", "set", "Master", "5%+", NULL };
 static const char *downvolume[] = { "amixer", "set", "Master", "5%-", NULL };
 static const char *mutevolume[] = { "amixer", "set", "Master", "toggle", NULL };
+static const char *upbrightness[]   = { "brightnessctl", "set", "10%+", NULL };
+static const char *downbrightness[] = { "brightnessctl", "set", "10%-", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -131,6 +133,8 @@ static const Key keys[] = {
   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvolume } },
   { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvolume } },
   { 0,                            XF86XK_AudioMute, spawn, {.v = mutevolume } },
+  { 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = upb      rightness } },
+  { 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = dow      nbrightness } },
 };
 
 /* button definitions */
