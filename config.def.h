@@ -133,8 +133,8 @@ static const Key keys[] = {
   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvolume } },
   { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvolume } },
   { 0,                            XF86XK_AudioMute, spawn, {.v = mutevolume } },
-  { 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = upb      rightness } },
-  { 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = dow      nbrightness } },
+  { 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = upbrightness } },
+  { 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = downbrightness } },
 };
 
 /* button definitions */
