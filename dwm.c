@@ -1648,10 +1648,10 @@ resize(Client *c, int x, int y, int w, int h, int interact)
 
 void
 resizebarwin(Monitor *m) {
-	unsigned int w = m->ww - 2 * sp;
+	unsigned int w = m->ww;
 	if (showsystray && m == systraytomon(m) && !systrayonleft)
 		w -= getsystraywidth();
-	XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, w, bh);
+	XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, w, bh);
 }
 
 void
@@ -2284,11 +2284,11 @@ togglebar(const Arg *arg)
 	if (showsystray) {
 		XWindowChanges wc;
 		if (!selmon->showbar)
-			wc.y = -bh - vp;
+			wc.y = -bh;
 		else if (selmon->showbar) {
-			wc.y = vp;
+			wc.y = 0;
 			if (!selmon->topbar)
-				wc.y = selmon->mh - bh - vp;
+				wc.y = selmon->mh - bh;
 		}
 		XConfigureWindow(dpy, systray->win, CWY, &wc);
 	}
@@ -2699,7 +2699,7 @@ updatesystray(void)
 	XWindowChanges wc;
 	Client *i;
 	Monitor *m = systraytomon(NULL);
-	unsigned int x = m->mx + m->mw - sp;
+	unsigned int x = m->mx + m->mw;
 	unsigned int sw = TEXTW(stext) - lrpad + systrayspacing;
 	unsigned int w = 1;
 
@@ -2711,7 +2711,7 @@ updatesystray(void)
 		/* init systray */
 		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
 			die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
-		systray->win = XCreateSimpleWindow(dpy, root, x, m->by + vp, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
+		systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
 		wa.event_mask        = ButtonPressMask | ExposureMask;
 		wa.override_redirect = True;
 		wa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
@@ -2746,8 +2746,8 @@ updatesystray(void)
 	}
 	w = w ? w + systrayspacing : 1;
 	x -= w;
-	XMoveResizeWindow(dpy, systray->win, x, m->by + vp, w, bh);
-	wc.x = x; wc.y = m->by + vp; wc.width = w; wc.height = bh;
+	XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
+	wc.x = x; wc.y = m->by; wc.width = w; wc.height = bh;
 	wc.stack_mode = Above; wc.sibling = m->barwin;
 	XConfigureWindow(dpy, systray->win, CWX|CWY|CWWidth|CWHeight|CWSibling|CWStackMode, &wc);
 	XMapWindow(dpy, systray->win);
